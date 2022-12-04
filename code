@@ -5,3 +5,32 @@ import pandas as pd
 # Import data and target
 df = pd.read_csv('/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/customer_information.csv') #change to own source's directory 
 print(df)
+
+
+
+
+
+
+
+### adding 'BMI' and delete 'weight' and 'height'
+# changing the csv file into a dictionary 
+Data=[*csv.DictReader(open('/Users/hailsgugu/Desktop/customer_information.csv'))]; 
+print(Data)
+
+#convert the dictionary into a DataFrame
+df=pd.DataFrame(Data)
+
+# convert just colums "weight" and "height" into numeric.
+df["weight"] = pd.to_numeric(df["weight"])
+df["height"] = pd.to_numeric(df["height"])
+df['heightsquared']=df['height']**2
+
+#df.insert(1,"BMI",[])
+df['bmi']=df['weight']/df['heightsquared']
+print(df)
+
+# delete the column 'weight','height'and 'heightsquared'
+del df['weight']
+del df['height']
+del df['heightsquared']
+print(df)
