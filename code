@@ -57,6 +57,14 @@ df['age'] = df['birthdate'].apply(from_birthdate_to_age)
 print(df['age'])
 
 # Banding age to groups
-bins = [0, 20, 30, 40, 50, 60, 70]
-labels=['<20','20-30','30-40','40-50','50-60','60-70']
-df['age_groups'] = pd.cut(df.age, bins, labels)
+bins_age = [0, 20, 30, 40, 50, 60, 80]
+labels_age= ['<20','20-30','30-40','40-50','50-60','60-70']
+df['age_groups'] = pd.cut(df.age, bins = bins_age, labels = labels_age)
+
+# Banding smoking per week
+## we are defining smoking <=40 cig per week as light smokers, 40-175 as intermediate smokers, >175 as heavy smokers
+### https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2865193/
+#### https://pubmed.ncbi.nlm.nih.gov/1614993/
+bins_smok= [0, 40, 175, 500]
+labels_smok=['light smokers','intermediate smokers','heavy smokers']
+df['smoking_status'] = pd.cut(df.avg_n_cigret_per_week, bins = bins_smok, labels = labels_smok)
