@@ -58,4 +58,5 @@ print(df['age'])
 
 # Banding age to groups
 bins = [0, 20, 30, 40, 50, 60, 70]
-df['age_groups'] = pd.cut(df.age, bins)
+labels=['<20','20-30','30-40','40-50','50-60','60-70']
+df['age_groups'] = pd.cut(df.age, bins, labels)
