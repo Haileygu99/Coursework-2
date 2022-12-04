@@ -1,1 +1,45 @@
 
+# Packages installment
+import csv
+import pandas as pd
+
+# Faker import
+from faker import Faker
+from collections import defaultdict
+fake = Faker(['En'])
+
+
+# Defining source and destination
+source='/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/customer_information.csv'
+target= '/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/target.csv'
+
+# Creating gender-specific first names https://www.tonic.ai/blog/how-to-generate-simple-test-data-with-faker
+def given_name_func(x):
+    if x == "M":
+        return fake.first_name_male()
+    else:
+        return fake.first_name_female()
+    for row in rows:
+        row["given_name"] = source["gender"].apply(given_name_func)
+        yield row
+
+def anonymize_rows(rows):
+    last_names = defaultdict(fake.last_name)
+    country = defaultdict(fake.country)
+    for row in rows:
+        row["surname"] = last_names[row["surname"]]
+        row["country_of_birth"] = country[row["country_of_birth"]]
+        yield row
+
+# function to map source and outputs
+def anonymize(source,target):
+    with open(source,"r") as f:
+        with open(target,"w") as o:
+            reader=csv.DictReader(f)  # using dict to extract the field
+            next(reader)
+            writer=csv.DictWriter(o,reader.fieldnames)
+            # read anonymous data
+            for row in anonymize_rows(reader):
+                writer.writerow(row)
+
+anonymize(source,target)
