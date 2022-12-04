@@ -57,5 +57,5 @@ df['age'] = df['birthdate'].apply(from_birthdate_to_age)
 print(df['age'])
 
 # Banding age to groups
-bins = [0, 20, 30, 40, 50, 60, 80]
+bins = [0, 20, 30, 40, 50, 60, 70]
 df['age_groups'] = pd.cut(df.age, bins)
