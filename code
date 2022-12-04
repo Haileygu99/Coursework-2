@@ -1,8 +1,11 @@
 # Packages installment
+
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
 from datetime import date
+import hashlib
+import random, string
 
 
 # Import data and target
@@ -74,3 +77,31 @@ df['smoking_status'] = pd.cut(df.avg_n_cigret_per_week, bins = bins_smok, labels
 bins_alc = [0,4,7,10]
 label_alc = ['low', 'moderate', 'high']
 df['level of drinking_status'] = pd.cut(df.avg_n_drinks_per_week, bins = bins_alc, labels = label_alc, right = False)
+
+#SHA ----------------------------------------------------------------
+
+#Salt generator
+def randomword(length):
+   letters = string.ascii_lowercase #generates lowercase letters
+   return ''.join(random.choice(letters) for i in range(length)) #generates salt from letters
+
+df['NI_enc']=df['national_insurance_number'].str.encode('utf-8') #utf encoding needed for sha function
+
+key='password123'.encode('utf-8') #encoding key
+
+#Hash function
+hashes=[]
+salt=[]
+for i in range(len(df['NI_enc'])):
+    salt.append(randomword(10).encode('utf-8'))
+    hashes.append(hashlib.sha1(key+salt[i]+df['NI_enc'][i]).hexdigest()) #hash function applied 
+
+df['hash']=hashes
+df['postcode_split'] = df['postcode'].str.split().str[0] 
+hash_cols=['given_name','surname','phone_number','national_insurance_number','blood_group','postcode']
+
+#Lookup table generation
+secure_df=df[hash_cols]
+secure_df['hash']=df['hash']
+secure_df['salt']=salt
+new_cust=df.drop(columns=hash_cols)
