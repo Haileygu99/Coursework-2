@@ -1,15 +1,13 @@
 # Packages installment
 import pandas as pd
+import datetime
+import matplotlib.pyplot as plt
+from datetime import date
 
 
 # Import data and target
 df = pd.read_csv('/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/customer_information.csv') #change to own source's directory 
 print(df)
-
-
-
-
-
 
 
 ### adding 'BMI' and delete 'weight' and 'height'
@@ -34,3 +32,30 @@ del df['weight']
 del df['height']
 del df['heightsquared']
 print(df)
+
+
+# Generate a function to convert birthdate to age group
+# Years of birth
+birthdate=pd.to_datetime(df.birthdate)
+df['birth_year'] = pd.DatetimeIndex(birthdate).year
+
+# Age
+def from_birthdate_to_age(birth_date):
+    now=pd.Timestamp('now')
+    now_year,now_month,now_day = now.year, now.month, now.day
+    birth_date = pd.to_datetime(birth_date)
+    birth_year, birth_month, birth_day = birth_date.year, birth_date.month, birth_date.day
+    age = now_year - birth_year
+    if now_month >= birth_month:
+        if now_day >= birth_day:
+            age = now_year - birth_year + 1
+    return (age)
+
+df['age'] = df['birthdate'].apply(from_birthdate_to_age)
+
+# Printing Age
+print(df['age'])
+
+# Banding age to groups
+bins = [0, 20, 30, 40, 50, 60, 80]
+df['age_groups'] = pd.cut(df.age, bins)
