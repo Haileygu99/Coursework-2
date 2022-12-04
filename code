@@ -68,3 +68,9 @@ df['age_groups'] = pd.cut(df.age, bins = bins_age, labels = labels_age)
 bins_smok= [0, 40, 175, 500]
 labels_smok=['light smokers','intermediate smokers','heavy smokers']
 df['smoking_status'] = pd.cut(df.avg_n_cigret_per_week, bins = bins_smok, labels = labels_smok)
+
+# Banding avg_n_drinks_per_week
+## 0-3.9 as low-level alc consumption, 4-6.9 as moderate alc consumption,7-10 as high-level alc consumption
+bins_alc = [0,4,7,10]
+label_alc = ['low', 'moderate', 'high']
+df['level of drinking_status'] = pd.cut(df.avg_n_drinks_per_week, bins = bins_alc, labels = label_alc, right = False)
