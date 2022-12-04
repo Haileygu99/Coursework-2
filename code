@@ -1,22 +1,7 @@
-
 # Packages installment
-import csv
 import pandas as pd
 
 
-# Defining source and destination
-source='/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/customer_information.csv'
-target= '/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/target.csv'
-
-# function to map source and outputs
-def anonymize(source,target):
-    with open(source,"r") as f:
-        with open(target,"w") as o:
-            reader=csv.DictReader(f)  # using dict to extract the field
-            next(reader)
-            writer=csv.DictWriter(o,reader.fieldnames)
-            # read anonymous data
-            for row in anonymize_rows(reader):
-                writer.writerow(row)
-
-anonymize(source,target)
+# Import data and target
+df = pd.read_csv('/Users/wenjiazhang/Documents/MSc_HDA/CDM/CDM_Coursework2/Data/customer_information.csv') #change to own source's directory 
+print(df)
