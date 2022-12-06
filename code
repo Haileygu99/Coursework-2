@@ -10,7 +10,6 @@ import random, string
 
 # Import data and target
 df = pd.read_csv(r'C:\Users\jay_g\Imperial College London\CDM Group 5 - WP - Documents\General\customer_information.csv') #change to own source's directory 
-print(df)
 
 # convert just colums "weight" and "height" into numeric.
 df["weight"] = pd.to_numeric(df["weight"])
@@ -19,14 +18,11 @@ df['heightsquared']=df['height']**2
 
 #df.insert(1,"BMI",[])
 df['bmi']=df['weight']/df['heightsquared']
-print(df)
 
 # delete the column 'weight','height'and 'heightsquared'
 del df['weight']
 del df['height']
 del df['heightsquared']
-print(df)
-
 
 # Generate a function to convert birthdate to age group
 # Years of birth
