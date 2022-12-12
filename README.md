@@ -1,8 +1,8 @@
 # Coursework-2 
 
-```
-# Instructions for decrypt the data file.
-```
+
+Instructions for decrypt the data file.
+
 ```
 # using the key
 fernet = Fernet(key)
