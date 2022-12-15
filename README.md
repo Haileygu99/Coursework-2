@@ -1,7 +1,10 @@
 # Coursework-2 
 
+## Overview
 
-Instructions for decrypt the Imperial researchers Dataset csv file.
+The datasets in this folder contains information decribing geographical, educational, demographic and lifestyle variables for a set of people who all currently live in the United Kingdom. There are two forms of the dataset. The dataset that is to be shared with the Government is called 'Government Dataset', and the other dataset that is to be shared with researchers is called the 'Imperial Researchers Dataset'.
+
+## Instructions for decrypt the Imperial researchers Dataset csv file.
 
 ```
 # using the key
@@ -24,7 +27,7 @@ with open('Imperial Researchers Dataset.csv', 'wb') as dec_Imperial_Researchers_
 ```
 
 
-Instructions for decrypt the Government Dataset csv file.
+## Instructions for decrypt the Government Dataset csv file.
 
 ```
 # using the key
